@@ -17,21 +17,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-    -  name: setup jdk
-       uses: actions/setup-java@v3
-       with:
-         java-version: 11
-         
-    -  name: maven run
-       run: mvn clean install
+    steps: 
+      -  name: create build directory
+         run: |
+            mkdir build
+            cp -r * build/
+            zip -r build.zip build
 
-  test:
-    runs-on: ubuntu-latest
 
-    steps:
-    -  name: test application
-       run: mvn test
        
        
   
