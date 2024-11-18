@@ -20,16 +20,11 @@ jobs:
     steps: 
       -  name: create build directory
          run: |
-            - name: Print Current Directory
-              run: pwd
-            - name: Create Build Directory
-              run: mkdir build
-            - name: Copy Files to Build Directory
-              run: rsync -av --progress ./ ./build --exclude ./build
-            - name: Zip Build Directory
-              run: zip -r build.zip build
-            - name: List Build Directory Content
-              run: ls -R build
+             pwd
+             mkdir build
+             rsync -av --progress ./ ./build --exclude ./build
+             zip -r build.zip build
+             ls -R build
 
 
        
