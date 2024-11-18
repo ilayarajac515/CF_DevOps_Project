@@ -16,11 +16,8 @@ jobs:
     -  name: create build directory
        run: |
             pwd
-            mkdir build
-            rsync -av --progress ./ ./build --exclude ./build
-            zip -r build.zip build
-            pwd
-            
+            ls -la
+           
 
 
        
