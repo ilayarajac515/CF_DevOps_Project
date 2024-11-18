@@ -33,10 +33,8 @@ jobs:
 
       - name: Install CommandBox
         run: |
-          curl -fsSL https://downloads.ortussolutions.com/debs/gpg | sudo gpg --dearmor -o /usr/share/keyrings/commandbox-keyring.asc
-          echo "deb [signed-by=/usr/share/keyrings/commandbox-keyring.asc] https://downloads.ortussolutions.com/debs/ stable main" | sudo tee /etc/apt/sources.list.d/commandbox.list
-          sudo apt-get update
-          sudo apt-get install commandbox -y
+          curl -fsSL https://downloads.ortussolutions.com/ortus.key | sudo apt-key add -
+          curl -fsSL https://www.ortussolutions.com/parent/download/commandbox/linux/64/latest | sudo bash
 
       - name: Start ColdFusion Server
         run: box server start cfengine=lucee@5
