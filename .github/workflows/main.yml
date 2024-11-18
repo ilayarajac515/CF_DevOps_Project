@@ -24,7 +24,26 @@ jobs:
             zip -r build.zip build
 
 
-    -  name: test case
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install CommandBox
+        run: |
+          curl -fsSL https://downloads.ortussolutions.com/debs/gpg | sudo gpg --dearmor -o /usr/share/keyrings/commandbox-keyring.asc
+          echo "deb [signed-by=/usr/share/keyrings/commandbox-keyring.asc] https://downloads.ortussolutions.com/debs/ stable main" | sudo tee /etc/apt/sources.list.d/commandbox.list
+          sudo apt-get update
+          sudo apt-get install commandbox -y
+
+      - name: Start ColdFusion Server
+        run: box server start cfengine=lucee@5
+
+      - name: Run Tests
+        run: box testbox run
+ 
 
 
 
