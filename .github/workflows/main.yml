@@ -33,8 +33,9 @@ jobs:
 
       - name: Install CommandBox
         run: |
-          curl -fsSL https://downloads.ortussolutions.com/ortus.key | sudo apt-key add -
-          curl -fsSL https://www.ortussolutions.com/parent/download/commandbox/linux/64/latest | sudo bash
+          curl -fsSl https://downloads.ortussolutions.com/debs/gpg | sudo apt-key add -
+          echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a /etc/apt/sources.list.d/commandbox.list
+          sudo apt-get update && sudo apt-get install commandbox
 
       - name: Start ColdFusion Server
         run: box server start cfengine=lucee@5
