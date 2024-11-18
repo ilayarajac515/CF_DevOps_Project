@@ -19,6 +19,8 @@ jobs:
             ls -la
             mkdir build
             rsync -av --progress ./ ./build --exclude build
+            pwd
+            
        
 
 
