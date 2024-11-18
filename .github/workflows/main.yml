@@ -50,7 +50,10 @@ jobs:
       - name: Install Trivy
         run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
       - name: Run Trivy Scan
-        run: trivy fs .
+        run: |
+          pwd
+          trivy fs .
+          
  
 
 
