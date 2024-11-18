@@ -48,11 +48,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Trivy
-        run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
-      - name: Run Trivy Scan
         run: |
-          pwd
-          trivy fs .
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+          sudo mv trivy /usr/local/bin/
+
+      - name: Run Trivy on Current Directory
+        run: trivy fs .
           
  
 
