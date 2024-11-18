@@ -22,8 +22,6 @@ jobs:
             pwd
             ls -R build
             zip -r build.zip build
-            cd build
-            ls -R 
             
             
             
