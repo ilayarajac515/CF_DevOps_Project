@@ -20,6 +20,11 @@ jobs:
             mkdir build
             rsync -av --progress ./ ./build --exclude build
             pwd
+            ls -R build
+            zip -r build.zip build
+            
+            
+            
             
        
 
