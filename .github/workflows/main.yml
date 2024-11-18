@@ -21,6 +21,7 @@ jobs:
             rsync -av --progress ./ ./build --exclude ./build
             ls -R build
             zip -r build.zip build
+            pwd
             
 
 
