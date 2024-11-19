@@ -44,9 +44,19 @@ jobs:
         run: box testbox run
 
         
-  sonar-qube:
+  sonarqube-analysis:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install SonarQube Scanner
+        run: |
+          curl -sSLo sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+          unzip sonar-scanner-cli.zip
+          sudo mv sonar-scanner-4.8.0.2856-linux /usr/local/sonar-scanner
+          sudo ln -s /usr/local/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
+
       - name: SonarQube Quality Check
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
