@@ -54,6 +54,8 @@ jobs:
 
       - name: Run Trivy on Current Directory
         run: trivy fs .
+
+        
           
  
 
