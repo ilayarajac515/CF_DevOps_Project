@@ -66,14 +66,23 @@ jobs:
           sudo mv sonar-scanner-4.8.0.2856-linux /usr/local/sonar-scanner
           sudo ln -s /usr/local/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
 
+      - name: Export JAVA_HOME for SonarScanner
+        run: |
+          export JAVA_HOME=/usr/lib/jvm/java-17-temurin
+          export PATH=$JAVA_HOME/bin:$PATH
+          echo "JAVA_HOME set to $JAVA_HOME"
+          java -version
+
       - name: Run SonarCloud Analysis
+        env:
+          JAVA_HOME: /usr/lib/jvm/java-17-temurin
+          PATH: /usr/lib/jvm/java-17-temurin/bin:$PATH
         run: |
           sonar-scanner \
             -Dsonar.projectKey=Cold_Fusion_Project \
             -Dsonar.organization=ilayarajac515 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
   
 
         
