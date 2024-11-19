@@ -43,17 +43,18 @@ jobs:
       - name: Run Tests
         run: box testbox run
 
-
-  trivy-scan:
+        
+  sonar-qube:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Trivy
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
-          sudo mv trivy /usr/local/bin/
+      - name: SonarQube Quality Check
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: sonar-scanner
+   
 
-      - name: Run Trivy on Current Directory
-        run: trivy fs .
+  
 
         
           
