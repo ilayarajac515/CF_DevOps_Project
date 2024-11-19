@@ -56,13 +56,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Export JAVA_HOME for SonarScanner
-        run: |
-          export JAVA_HOME=/usr/lib/jvm/java-17-temurin
-          export PATH=$JAVA_HOME/bin:$PATH
-          echo "JAVA_HOME set to $JAVA_HOME"
-          java -version
-
       - name: Verify Java Version
         run: java -version
 
@@ -77,6 +70,13 @@ jobs:
       - name: Verify SonarScanner Installation
         run: sonar-scanner --version
 
+      - name: Export JAVA_HOME for SonarScanner
+        run: |
+          export JAVA_HOME=/usr/lib/jvm/java-17-temurin
+          export PATH=$JAVA_HOME/bin:$PATH
+          echo "JAVA_HOME set to $JAVA_HOME"
+          java -version
+          
       - name: Run SonarCloud Analysis
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-temurin
