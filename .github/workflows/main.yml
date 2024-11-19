@@ -60,7 +60,7 @@ jobs:
         run: |
           sonar-scanner \
             -Dsonar.projectKey=Cold_Fusion_Project \
-            -Dsonar.organization=<your-organization-key> \
+            -Dsonar.organization=ilayarajac515 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
