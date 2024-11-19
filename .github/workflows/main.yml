@@ -23,7 +23,6 @@ jobs:
             ls -R build
             zip -r build.zip build
 
-
   test:
     runs-on: ubuntu-latest
 
@@ -56,7 +55,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
+ 
+      - name: Verify Java Version
+        run: java -version
+    
       - name: Install SonarScanner
         run: |
           curl -sSLo sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
