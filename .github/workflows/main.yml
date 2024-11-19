@@ -57,10 +57,7 @@ jobs:
           sudo mv sonar-scanner-4.8.0.2856-linux /usr/local/sonar-scanner
           sudo ln -s /usr/local/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
 
-      - name: SonarQube Quality Check
-        env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Run SonarQube Analysis
         run: sonar-scanner
    
 
