@@ -43,23 +43,27 @@ jobs:
       - name: Run Tests
         run: box testbox run
 
-        
-  sonarqube-analysis:
+
+  sonarcloud:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install SonarQube Scanner
+      - name: Setup SonarScanner
         run: |
-          curl -sSLo sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-          unzip sonar-scanner-cli.zip
+          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+          unzip sonar-scanner.zip
           sudo mv sonar-scanner-4.8.0.2856-linux /usr/local/sonar-scanner
-          sudo ln -s /usr/local/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
 
-      - name: Run SonarQube Analysis
-        run: sonar-scanner
-   
+      - name: Run SonarCloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner -Dsonar.projectKey=Cold_Fusion_Project \
+                        -Dsonar.organization=Cold_Fusion_Project \
+                        -Dsonar.sources=. \
+                        -Dsonar.login=$SONAR_TOKEN
 
   
 
