@@ -47,6 +47,10 @@ jobs:
   sonarcloud:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -59,9 +63,6 @@ jobs:
           unzip sonar-scanner-cli.zip
           sudo mv sonar-scanner-4.8.0.2856-linux /usr/local/sonar-scanner
           sudo ln -s /usr/local/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
-      
-      - name: Checkout code
-        uses: actions/checkout@v3
 
       - name: Run SonarCloud Analysis
         run: |
