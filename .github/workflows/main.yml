@@ -55,28 +55,25 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Export JAVA_HOME and PATH
-        run: |
-          export JAVA_HOME=/usr/lib/jvm/java-17-temurin
-          export PATH=$JAVA_HOME/bin:$PATH
-          echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
-          echo "PATH=$PATH" >> $GITHUB_ENV
-          java -version
-
       - name: Install SonarScanner
         run: |
           curl -sSLo sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
           unzip sonar-scanner-cli.zip
           sudo mv sonar-scanner-4.8.0.2856-linux /usr/local/sonar-scanner
-          echo "PATH=/usr/local/sonar-scanner/bin:$PATH" >> $GITHUB_ENV
+          echo "export PATH=/usr/local/sonar-scanner/bin:$PATH" >> $GITHUB_ENV
+
+      - name: Verify Java Version
+        run: java -version
 
       - name: Verify SonarScanner Installation
         run: sonar-scanner --version
 
       - name: Run SonarCloud Analysis
         env:
-          JAVA_HOME: /usr/lib/jvm/java-17-temurin
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
+          export JAVA_HOME=/usr/lib/jvm/java-17-temurin
+          export PATH=$JAVA_HOME/bin:$PATH
           sonar-scanner \
             -Dsonar.projectKey=Cold_Fusion_Project \
             -Dsonar.organization=ilayarajac515 \
