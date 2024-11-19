@@ -47,21 +47,20 @@ jobs:
   sonarcloud:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup SonarScanner
-        run: |
-          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-          unzip sonar-scanner.zip
-          sudo mv sonar-scanner-4.8.0.2856-linux /usr/local/sonar-scanner
-          sudo ln -s /usr/local/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
 
       - name: Run SonarCloud Analysis
         run: |
           sonar-scanner \
             -Dsonar.projectKey=Cold_Fusion_Project \
-            -Dsonar.organization=ilayarajac515 \
+            -Dsonar.organization=<your-organization-key> \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
