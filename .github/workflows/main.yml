@@ -69,7 +69,14 @@ jobs:
             -Dsonar.sources=. \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN
-
+            
+  trivy-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Trivy
+        run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+      - name: Run Trivy Scan
+        run: trivy fs .
 
 
         
