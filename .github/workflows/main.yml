@@ -76,15 +76,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Verify Checkout
+        run: ls -la
+
       - name: Install Trivy
         run: |
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
           echo "PATH=$PWD/bin:$PATH" >> $GITHUB_ENV
-          echo "Trivy PATH: $PWD/bin"
-          ./bin/trivy --version  # Verify Trivy installation
+          ./bin/trivy --version
 
       - name: Run Trivy Scan
-        run: ./bin/trivy fs .
+        run: ./bin/trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project --scanners vuln
 
 
 
