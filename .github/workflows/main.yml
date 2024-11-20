@@ -86,7 +86,9 @@ jobs:
           ./bin/trivy --version
 
       - name: Run Trivy Scan
-        run: ./bin/trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project --scanners vuln
+        run: ./bin/trivy fs --scanners vuln --severity HIGH,CRITICAL /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+
+
 
 
 
