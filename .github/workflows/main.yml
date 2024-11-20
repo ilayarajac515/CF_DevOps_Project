@@ -44,41 +44,28 @@ jobs:
 
 
   sonarcloud:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    runs-on: ubuntu-latest  # GitHub Actions default runner
 
-      - name: Set up JDK 17
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3  # Code fetch panna GitHub repository-la irundhu
+
+      - name: Set up JDK 11  # SonarCloud-ku Java runtime thevai
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          java-version: '11'
 
-      - name: Install SonarScanner
-        run: |
-          curl -sSLo sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-          unzip sonar-scanner-cli.zip
-          sudo mv sonar-scanner-4.8.0.2856-linux /usr/local/sonar-scanner
-          echo "export PATH=/usr/local/sonar-scanner/bin:$PATH" >> $GITHUB_ENV
-
-      - name: Verify Java Version
-        run: java -version
-
-      - name: Verify SonarScanner Installation
-        run: sonar-scanner --version
-
-      - name: Run SonarCloud Analysis
+      - name: Run SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          export JAVA_HOME=/usr/lib/jvm/java-17-temurin
-          export PATH=$JAVA_HOME/bin:$PATH
-          sonar-scanner \
+          # SonarScanner execute pannum commands
+          npx sonar-scanner \
             -Dsonar.projectKey=Cold_Fusion_Project \
             -Dsonar.organization=ilayarajac515 \
+            -Dsonar.sources=. \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.login=$SONAR_TOKEN
 
 
         
