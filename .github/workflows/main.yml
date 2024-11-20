@@ -73,10 +73,18 @@ jobs:
   trivy-scan:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
       - name: Install Trivy
-        run: curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh
+          sudo ln -s /usr/local/bin/trivy /usr/bin/trivy
+          trivy --version
+
       - name: Run Trivy Scan
         run: trivy fs .
+
 
 
         
