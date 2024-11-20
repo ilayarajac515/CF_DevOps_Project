@@ -78,8 +78,8 @@ jobs:
 
       - name: Install Trivy
         run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh
-          sudo ln -s /usr/local/bin/trivy /usr/bin/trivy
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+          echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
           trivy --version
 
       - name: Run Trivy Scan
