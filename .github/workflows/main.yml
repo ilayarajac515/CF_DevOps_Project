@@ -79,11 +79,12 @@ jobs:
       - name: Install Trivy
         run: |
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
-          echo "PATH=$(pwd)/bin:$PATH" >> $GITHUB_ENV
-          trivy --version
+          echo "PATH=$PWD/bin:$PATH" >> $GITHUB_ENV
+          echo "Trivy PATH: $PWD/bin"
+          ./bin/trivy --version  # Verify Trivy installation
 
       - name: Run Trivy Scan
-        run: trivy fs .
+        run: ./bin/trivy fs .
 
 
 
