@@ -81,12 +81,16 @@ jobs:
 
       - name: Install Trivy
         run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
-          echo "PATH=$PWD/bin:$PATH" >> $GITHUB_ENV
-          ./bin/trivy --version
+          sudo apt-get install wget apt-transport-https gnupg lsb-release
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install trivy
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
+          sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
 
       - name: Run Trivy Scan
-        run: ./bin/trivy fs --scanners vuln --severity HIGH,CRITICAL /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+        run: trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
 
 
 
