@@ -50,23 +50,26 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3  # Code fetch panna GitHub repository-la irundhu
 
-      - name: Set up JDK 11  # SonarCloud-ku Java runtime thevai
+      - name: Set up JDK 17  # SonarCloud-ku Java runtime thevai
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
+
+      - name: Install SonarScanner
+        run: npm install sonar-scanner
 
       - name: Run SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          # SonarScanner execute pannum commands
-          npx sonar-scanner \
+          ./node_modules/.bin/sonar-scanner \
             -Dsonar.projectKey=Cold_Fusion_Project \
             -Dsonar.organization=ilayarajac515 \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN
+
 
 
         
