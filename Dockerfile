@@ -14,7 +14,8 @@ WORKDIR /app
 RUN unzip build.zip -d /app/
 
 # Define server port
-ENV BOX_SERVER_WEB_PORT=8080
+ENV BOX_SERVER_WEB_PORT=9090
 
 # Start the ColdFusion server
-CMD ["box", "server", "start", "--console"]
+CMD ["box", "server", "start", "host=0.0.0.0"]
+
