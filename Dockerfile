@@ -1,6 +1,8 @@
 FROM ortussolutions/commandbox:latest
 
 # App directory copy
+RUN pwd
+
 WORKDIR /app
 COPY . /app
 
