@@ -94,12 +94,7 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
-    steps:
-      -  name: install docker
-         run: |
-           sudo apt-get update
-           sudo apt-get install -y docker.io
-           
+    steps: 
       -  name: build docker image
          run: docker build -t cold_fusion_app:latest .
 
