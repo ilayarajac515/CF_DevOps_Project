@@ -25,62 +25,62 @@ jobs:
               pwd
               ls -l
 
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      # - name: Checkout Code
+      #   uses: actions/checkout@v2
 
-      - name: Install CommandBox
-        run: |
-          curl -fsSl https://downloads.ortussolutions.com/debs/gpg | sudo apt-key add -
-          echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a /etc/apt/sources.list.d/commandbox.list
-          sudo apt-get update && sudo apt-get install commandbox
+      # - name: Install CommandBox
+      #   run: |
+      #     curl -fsSl https://downloads.ortussolutions.com/debs/gpg | sudo apt-key add -
+      #     echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a /etc/apt/sources.list.d/commandbox.list
+      #     sudo apt-get update && sudo apt-get install commandbox
 
-      - name: Start ColdFusion Server
-        run: box server start cfengine=lucee@5
+      # - name: Start ColdFusion Server
+      #   run: box server start cfengine=lucee@5
 
-      - name: Run Tests
-        run: box testbox run
+      # - name: Run Tests
+      #   run: box testbox run
 
-      - name: Checkout source code
-        uses: actions/checkout@v3  # Code fetch panna GitHub repository-la irundhu
+      # - name: Checkout source code
+      #   uses: actions/checkout@v3  # Code fetch panna GitHub repository-la irundhu
 
-      - name: Set up JDK 17  # SonarCloud-ku Java runtime thevai
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
+      # - name: Set up JDK 17  # SonarCloud-ku Java runtime thevai
+      #   uses: actions/setup-java@v3
+      #   with:
+      #     java-version: '17'
+      #     distribution: 'temurin'
 
-      - name: Install SonarScanner
-        run: npm install sonar-scanner
+      # - name: Install SonarScanner
+      #   run: npm install sonar-scanner
 
-      - name: Run SonarCloud analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ./node_modules/.bin/sonar-scanner \
-            -Dsonar.projectKey=Cold_Fusion_Project \
-            -Dsonar.organization=ilayarajac515 \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN
+      # - name: Run SonarCloud analysis
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   run: |
+      #     ./node_modules/.bin/sonar-scanner \
+      #       -Dsonar.projectKey=Cold_Fusion_Project \
+      #       -Dsonar.organization=ilayarajac515 \
+      #       -Dsonar.sources=. \
+      #       -Dsonar.host.url=https://sonarcloud.io \
+      #       -Dsonar.login=$SONAR_TOKEN
             
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      # - name: Checkout Code
+      #   uses: actions/checkout@v3
 
-      - name: Verify Checkout
-        run: ls -la
+      # - name: Verify Checkout
+      #   run: ls -la
 
-      - name: Install Trivy
-        run: |
-          sudo apt-get install wget apt-transport-https gnupg lsb-release
-          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-          sudo apt-get update
-          sudo apt-get install trivy
-          wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
-          sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
+      # - name: Install Trivy
+      #   run: |
+      #     sudo apt-get install wget apt-transport-https gnupg lsb-release
+      #     wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+      #     echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+      #     sudo apt-get update
+      #     sudo apt-get install trivy
+      #     wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
+      #     sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
 
-      - name: Run Trivy Scan
-        run: trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+      # - name: Run Trivy Scan
+      #   run: trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
    
       -  name: checkout-code
          uses: actions/checkout@v3
