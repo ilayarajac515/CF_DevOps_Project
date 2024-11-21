@@ -79,6 +79,12 @@ jobs:
 
       # - name: Run Trivy Scan
       #   run: trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+
+
+      -  name: Verify build.zip
+         run: |
+          pwd
+          ls -l /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
    
       -  name: checkout-code
          uses: actions/checkout@v3
