@@ -21,9 +21,9 @@ jobs:
               rsync -av --progress ./ ./build --exclude build
               pwd
               zip -r build.zip build
-              cd build
-              pwd
-              ls -l
+              # cd build
+              # pwd
+              # ls -l
               mv build.zip /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project/
       # - name: Checkout Code
       #   uses: actions/checkout@v2
