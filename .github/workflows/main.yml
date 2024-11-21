@@ -22,6 +22,7 @@ jobs:
               pwd
               zip -r build.zip build
               cd build
+              pwd
 
       - name: Checkout Code
         uses: actions/checkout@v2
