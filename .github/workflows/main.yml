@@ -21,9 +21,8 @@ jobs:
               rsync -av ./ ./build --exclude build
               pwd
               zip -r build.zip build
-              # cd build
-              # pwd
-              ls -l
+              mv build.zip ${{ github.workspace }}
+              ls -l ${{ github.workspace }}
       # - name: Checkout Code
       #   uses: actions/checkout@v2
 
@@ -97,5 +96,4 @@ jobs:
 
       - name: Run Docker Container
         run: |
-          ifconfig
           docker run -d -p 8080:8080 --name cold_fusion_app_container ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app:latest
