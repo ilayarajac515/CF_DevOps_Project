@@ -111,4 +111,5 @@ jobs:
 
       - name: Run Docker Container
         run: |
+          ip -a
           docker run -d -p 8080:8080 --name cold_fusion_app_container ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app:latest
