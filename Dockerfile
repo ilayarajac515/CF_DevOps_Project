@@ -1,17 +1,19 @@
-# Step 1: Use a base image with CommandBox
-FROM ortussolutions/commandbox:latest
+FROM ortussolutions/commandbox:5.x  # Specific version
 
-# Step 2: Copy the zip file to the container
+# Install unzip utility
+RUN apt-get update && apt-get install -y unzip
+
+# Copy build.zip
 COPY build.zip /app/build.zip
 
-# Step 3: Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Step 4: Extract the zip file
+# Extract zip file
 RUN unzip build.zip -d /app/
 
-# Step 5: Define environment variables
+# Define server port
 ENV BOX_SERVER_WEB_PORT=8080
 
-# Step 6: Start the ColdFusion server
-CMD ["box", "server", "start"]
+# Start ColdFusion server
+CMD ["box", "server", "start", "cfengine=lucee@5", "--console"]
