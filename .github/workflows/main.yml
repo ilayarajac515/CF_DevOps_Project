@@ -94,7 +94,10 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
-    steps: 
+    steps:   
+      -  name: checkout-code
+         uses: actions/checkout@v3
+         
       -  name: build docker image
          run: docker build -t cold_fusion_app:latest .
 
