@@ -20,7 +20,7 @@ jobs:
               mkdir build
               rsync -av ./ ./build --exclude build
               pwd
-              zip -r build.zip build
+              zip -r ${{ github.workspace }}/build.zip build
               # mv build.zip ${{ github.workspace }}
               # ls -l ${{ github.workspace }}
       # - name: Checkout Code
