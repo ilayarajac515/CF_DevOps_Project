@@ -10,23 +10,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    -  name: checkout-code
-       uses: actions/checkout@v3
+      -  name: checkout-code
+         uses: actions/checkout@v3
+  
+      -  name: create build directory
+         run: |
+              pwd
+              ls -la
+              mkdir build
+              rsync -av --progress ./ ./build --exclude build
+              pwd
+              ls -R build
+              zip -r build.zip build
 
-    -  name: create build directory
-       run: |
-            pwd
-            ls -la
-            mkdir build
-            rsync -av --progress ./ ./build --exclude build
-            pwd
-            ls -R build
-            zip -r build.zip build
-
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout Code
         uses: actions/checkout@v2
 
@@ -42,11 +38,6 @@ jobs:
       - name: Run Tests
         run: box testbox run
 
-
-  sonarcloud:
-    runs-on: ubuntu-latest  # GitHub Actions default runner
-
-    steps:
       - name: Checkout source code
         uses: actions/checkout@v3  # Code fetch panna GitHub repository-la irundhu
 
@@ -70,9 +61,6 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN
             
-  trivy-scan:
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
@@ -91,10 +79,7 @@ jobs:
 
       - name: Run Trivy Scan
         run: trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
-
-  docker:
-    runs-on: ubuntu-latest
-    steps:   
+   
       -  name: checkout-code
          uses: actions/checkout@v3
          
