@@ -1,8 +1,7 @@
 # Step 1: Use a base image with CommandBox
 FROM ortussolutions/commandbox:latest
 
-RUN ls 
-RUN pwd
+WORKDIR /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
 # Step 2: Copy your zip file to the container
 COPY build /app/build
 
