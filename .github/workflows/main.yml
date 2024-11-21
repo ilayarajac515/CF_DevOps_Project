@@ -24,7 +24,7 @@ jobs:
               cd build
               pwd
               ls -l
-
+              mv build.zip /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project/
       # - name: Checkout Code
       #   uses: actions/checkout@v2
 
