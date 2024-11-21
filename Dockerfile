@@ -1,13 +1,17 @@
+# Step 1: Use a base image with CommandBox
 FROM ortussolutions/commandbox:latest
 
-# App directory copy
-RUN pwd
+# Step 2: Copy your zip file to the container
+COPY your-application.zip /app/your-application.zip
 
+# Step 3: Set the working directory
 WORKDIR /app
-COPY . /app
 
-# Port expose
-EXPOSE 8080
+# Step 4: Extract the zip file (Linux command)
+RUN unzip your-application.zip -d /app/
 
-# ColdFusion server start
-CMD ["box", "server", "start", "cfengine=lucee@5", "openbrowser=false"]
+# Step 5: Define environment variables (if needed)
+ENV BOX_SERVER_WEB_PORT=8080
+
+# Step 6: Run the ColdFusion server using CommandBox
+CMD ["box", "server", "start"]
