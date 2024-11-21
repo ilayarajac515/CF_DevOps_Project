@@ -1,10 +1,13 @@
 # Step 1: Use a base image with CommandBox
 FROM ortussolutions/commandbox:latest
 
+RUN ls 
+RUN pwd
 # Step 2: Copy your zip file to the container
 COPY build /app/build
 
 # Step 3: Set the working directory
+
 WORKDIR /app
 
 # Step 4: Extract the zip file (Linux command)
