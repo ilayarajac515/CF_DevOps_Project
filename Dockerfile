@@ -19,5 +19,5 @@ RUN cp -r build/. .
 ENV BOX_SERVER_WEB_PORT=8080
 
 # Start the ColdFusion server
-CMD ["box", "server", "start", "host=0.0.0.0"]
+CMD ["box", "server", "start", "cfengine=lucee@5"]
 
