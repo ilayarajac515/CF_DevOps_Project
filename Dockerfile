@@ -12,13 +12,11 @@ WORKDIR /app
 
 # Extract the zip file
 RUN unzip build.zip -d /app/
-
-RUN cd build 
-
-RUN cp -r . ../
+ 
+RUN cp -r build/. .
 
 # Define server port
-ENV BOX_SERVER_WEB_PORT=9090
+ENV BOX_SERVER_WEB_PORT=8080
 
 # Start the ColdFusion server
 CMD ["box", "server", "start", "host=0.0.0.0"]
