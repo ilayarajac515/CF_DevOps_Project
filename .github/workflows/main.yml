@@ -23,8 +23,8 @@ jobs:
               zip -r ${{ github.workspace }}/build.zip build
               # mv build.zip ${{ github.workspace }}
               ls -l ${{ github.workspace }}
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      # - name: Checkout Code
+      #   uses: actions/checkout@v2
 
       - name: Install CommandBox
         run: |
