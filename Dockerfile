@@ -15,7 +15,7 @@ RUN unzip build.zip -d /app/
 
 RUN cd build 
 
-RUN cp -r . /app/
+RUN cp -r . ../
 
 # Define server port
 ENV BOX_SERVER_WEB_PORT=9090
