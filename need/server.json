@@ -3,7 +3,7 @@
     "cfengine": "lucee@5"
   },
   "web": {
-    "webroot": "/app/build/", 
+    "webroot": "/app/", 
     "host": "0.0.0.0"
   },
   "server": {
