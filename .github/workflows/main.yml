@@ -28,16 +28,18 @@ jobs:
 
       - name: Install CommandBox
         run: |
-          curl -fsSl https://downloads.ortussolutions.com/debs/gpg | sudo apt-key add -
-          echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a /etc/apt/sources.list.d/commandbox.list
-          sudo apt-get update && sudo apt-get install commandbox
+            curl -fsSl https://downloads.ortussolutions.com/debs/gpg | sudo apt-key add -
+            echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a /etc/apt/sources.list.d/commandbox.list
+            sudo apt-get update && sudo apt-get install commandbox
 
-      - name: Start ColdFusion Server
+      - name: Start ColdFusion Server for Testing
         run: |
-            box server start cfengine=lucee@5
+            mkdir -p /tmp/testing-config
+            box server start cfengine=lucee@5 configDir=/tmp/testing-config
 
       - name: Run Tests
-        run: box testbox run directory=tests.specs recurse=true reporter=json verbose=true
+        run: |
+            box testbox run directory=tests.specs recurse=true reporter=json verbose=true
 
 
       # - name: Checkout source code
