@@ -20,6 +20,8 @@ RUN cp -r build/. .
 # Define server port
 ENV BOX_SERVER_WEB_PORT=8080
 
+EXPOSE 8080
+
 # Start the ColdFusion server using server.json
 CMD ["box", "server", "start", "cfengine=lucee@5"]
 
