@@ -34,13 +34,11 @@ jobs:
 
       - name: Start ColdFusion Server for Testing
         run: |
-            mkdir -p /tmp/testing-config
-            box server start cfengine=lucee@5 configDir=/tmp/testing-config
+          box server start cfengine=lucee@5 --no-config
 
       - name: Run Tests
         run: |
-            box testbox run directory=tests.specs recurse=true reporter=json verbose=true
-
+          box testbox run directory=tests.specs recurse=true reporter=json verbose=true
 
       # - name: Checkout source code
       #   uses: actions/checkout@v3  # Code fetch panna GitHub repository-la irundhu
