@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y unzip
 COPY build.zip /app/build.zip
 
 # Copy server.json to the container
-COPY server.json /app/server.json
+COPY need/server.json /app/server.json
 
 # Set working directory
 WORKDIR /app
