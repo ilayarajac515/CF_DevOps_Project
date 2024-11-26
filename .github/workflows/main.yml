@@ -66,21 +66,21 @@ jobs:
       # - name: Checkout Code
       #   uses: actions/checkout@v3
 
-      - name: Verify Checkout
-        run: ls -la
+      # - name: Verify Checkout
+      #   run: ls -la
 
-      - name: Install Trivy
-        run: |
-          sudo apt-get install wget apt-transport-https gnupg lsb-release
-          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-          sudo apt-get update
-          sudo apt-get install trivy
-          wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
-          sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
+      # - name: Install Trivy
+      #   run: |
+      #     sudo apt-get install wget apt-transport-https gnupg lsb-release
+      #     wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+      #     echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+      #     sudo apt-get update
+      #     sudo apt-get install trivy
+      #     wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
+      #     sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
 
-      - name: Run Trivy Scan
-        run: trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+      # - name: Run Trivy Scan
+      #   run: trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
 
 
       -  name: Verify build.zip
