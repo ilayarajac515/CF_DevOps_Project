@@ -25,4 +25,4 @@ EXPOSE 8080
 # Start the ColdFusion server using server.json
 CMD ["box", "server", "start", "cfengine=lucee@5"]
 
-cmd ["start", "server"]
+CMD ["start", "server"]
