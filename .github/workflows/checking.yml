@@ -1,0 +1,28 @@
+name: CI/CD Pipeline
+
+on: 
+  push:
+    branches:
+      -  main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -  name: checkout-code
+         uses: actions/checkout@v3
+  
+      -  name: create build directory
+         run: |
+              pwd
+              ls -la
+              mkdir build
+              rsync -av ./ ./build --exclude build
+              pwd
+              zip -r ${{ github.workspace }}/build.zip build
+              # mv build.zip ${{ github.workspace }}
+              ls -l ${{ github.workspace }}
+       
+
+     
