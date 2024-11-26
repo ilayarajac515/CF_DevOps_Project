@@ -39,8 +39,8 @@ jobs:
 
       - name: Push Docker Image
         run: |
-          docker tag cold_fusion_6 ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app:latest
+          docker tag cold_fusion_6 ${{ secrets.DOCKER_USERNAME }}/cold_fusion_7
+          docker push ${{ secrets.DOCKER_USERNAME }}/cold_fusion_7
 
 
      
