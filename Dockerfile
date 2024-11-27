@@ -4,8 +4,8 @@ FROM lucee/lucee
 # Install unzip utility
 RUN apt-get update && apt-get install -y unzip
 
-RUN cd ../../.. && cd /var/www
-# Copy the build.zip file to the container
+WORKDIR /var/www
+
 COPY build.zip build.zip
 
 # Extract the zip file
@@ -16,6 +16,6 @@ ENV BOX_SERVER_WEB_PORT=8888
 
 EXPOSE 8888
 
-
+CMD ["catalina.sh", "run"]
 
 
