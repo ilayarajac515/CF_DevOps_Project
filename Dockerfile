@@ -1,10 +1,9 @@
 # Use a valid base image and tag
 FROM lucee/lucee
 
-# Install unzip utility
-RUN apt-get update && apt-get install -y unzip
-
 WORKDIR /var/www
+
+RUN apt-get update && apt-get install -y unzip
 
 COPY build.zip build.zip
 
