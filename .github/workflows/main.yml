@@ -101,11 +101,17 @@ jobs:
           docker tag cold_fusion_app:latest ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app:latest
 
+      - name: Set up kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG_CONTENT }}" > $HOME/.kube/config
+
       - name: Deploy to Kubernetes
-        uses: azure/k8s-deploy@v4
-        with:
-          namespace: default
-          manifests: |
-            ./k8s/deployment.yaml
-            ./k8s/service.yaml
-          images: $DOCKER_USERNAME/coldfusion-app:latest
+        run: |
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+
+      - name: Verify Deployment
+        run: |
+          kubectl get pods
+          kubectl get svc
