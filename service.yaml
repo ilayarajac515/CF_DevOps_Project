@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: coldfusion-service
 spec:
+  type: NodePort
   selector:
     app: coldfusion
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 8888
-    nodePort: 30007
+    - protocol: TCP
+      port: 80
+      targetPort: 8888
+      nodePort: 30007
