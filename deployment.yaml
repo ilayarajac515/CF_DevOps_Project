@@ -1,19 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-deployment
+  name: coldfusion-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: myapp
+      app: coldfusion
   template:
     metadata:
       labels:
-        app: myapp
+        app: coldfusion
     spec:
       containers:
-      - name: myapp-container
-        image: ilayaraja616/cold_fusion_app
+      - name: coldfusion
+        image: ilayaraja616/cold_fusion_app # Replace with your ColdFusion app image
         ports:
-        - containerPort: 8888
+        - containerPort: 8500
+        env:
+        - name: DB_HOST
+          value: "98.130.55.74" # Replace with your SQL Server IP
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: sqlserver-secret
+              key: username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: sqlserver-secret
+              key: password
