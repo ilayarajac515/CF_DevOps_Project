@@ -16,17 +16,4 @@ spec:
       - name: coldfusion
         image: ilayaraja616/cold_fusion_app # Replace with your ColdFusion app image
         ports:
-        - containerPort: 8500
-        env:
-        - name: DB_HOST
-          value: "98.130.55.74" # Replace with your SQL Server IP
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: sqlserver-secret
-              key: username
-        - name: DB_PASS
-          valueFrom:
-            secretKeyRef:
-              name: sqlserver-secret
-              key: password
+        - containerPort: 8888
