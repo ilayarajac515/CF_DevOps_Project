@@ -10,7 +10,7 @@ COPY build.zip build.zip
 # Extract the zip file
 RUN unzip build.zip -d . && cp -r build/. . && rm -rf build build.zip
 
-COPY setup.cfm /var/www/  # Include setup.cfm in container
+COPY setup.cfm /var/www/  
 # Define server port
 ENV BOX_SERVER_WEB_PORT=8888
 
