@@ -1,6 +1,7 @@
 <cfscript>
 adminObj = createObject("component", "cfide.adminapi.administrator");
-adminObj.login("Infoane@123");
+adminObj.setPassword("Admin@infoane123");
+adminObj.login("Admin@infoane123");
 dataSourceObj = createObject("component", "cfide.adminapi.datasource");
 dataSourceObj.setMSSQL(
     "BillingSystem",
