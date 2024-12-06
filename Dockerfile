@@ -16,4 +16,4 @@ ENV BOX_SERVER_WEB_PORT=8888
 
 EXPOSE 8888
 
-CMD ["catalina.sh", "run && curl http://localhost:8888/setup.cfm"]  # Auto-trigger setup
+CMD ["sh", "-c", "catalina.sh run && curl http://localhost:8888/setup.cfm"]
