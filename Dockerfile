@@ -32,6 +32,8 @@ RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var na
 # Modify `server.xml` context tag to set docBase correctly
 RUN sed -i "s|docBase=\"/app\"|<Context path=\"\" docBase=\"/opt/coldfusion/cfusion/wwwroot\" allowLinking=\"true\" listings=\"true\">|g" /opt/coldfusion/cfusion/runtime/conf/server.xml
 
+WORKDIR /opt
+
 # Install required packages (sqlserver, debugger, image, mail) using cfpm.sh
 RUN /opt/coldfusion/cfpm/bin/cfpm.sh install sqlserver debugger image mail
 
