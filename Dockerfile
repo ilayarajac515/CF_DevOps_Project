@@ -1,7 +1,11 @@
 # Use a valid base image and tag
-FROM lucee/lucee
+FROM adobecoldfusion/coldfusion2021:latest
 
-WORKDIR /var/www
+ENV acceptEULA=YES
+ENV adminPassword="Admin@123"
+ENV enableSecureProfile=NO
+
+WORKDIR /opt/coldfusion/cfusion/wwwroot
 
 RUN apt-get update && apt-get install -y unzip
 
