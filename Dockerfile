@@ -23,14 +23,12 @@ COPY build.zip build.zip
 # Extract the zip file and clean up
 RUN unzip build.zip -d . && cp -r build/. . && rm -rf build build.zip
 
-# Expose ColdFusion server port
-EXPOSE 8500
-
 # Update `neo-security.xml` to disable admin security (password disable)
 RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
 
-# Modify `server.xml` context tag to set docBase correctly
-RUN sed -i "s|docBase=\"/app\"|<Context path=\"\" docBase=\"/opt/coldfusion/cfusion/wwwroot\" allowLinking=\"true\" listings=\"true\">|g" /opt/coldfusion/cfusion/runtime/conf/server.xml
+# Modify the <Context> tag in server.xml
+RUN sed -i 's|<Context[[:space:]]*path=""[[:space:]]*docBase="/app"[[:space:]]*WorkDir="/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp"[[:space:]]*>|<Context path="" docBase="/opt/coldfusion/cfusion/wwwroot" WorkDir="/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp" allowLinking="true" listings="true">|g' /opt/coldfusion/cfusion/runtime/conf/server.xml
+
 
 WORKDIR /opt
 
@@ -45,6 +43,9 @@ RUN /bin/bash -c 'cfexecute="/bin/bash /tmp/datasource.cfm"'
 
 # Clean up temporary files
 RUN rm -f /tmp/datasource.cfm
+
+# Expose ColdFusion server port
+EXPOSE 8500
 
 # Final CMD to start ColdFusion server
 CMD ["/opt/coldfusion/cfusion/bin/coldfusion", "start"]
