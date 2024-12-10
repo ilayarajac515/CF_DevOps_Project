@@ -35,7 +35,7 @@ RUN sed -i "s|docBase=\"/app\"|<Context path=\"\" docBase=\"/opt/coldfusion/cfus
 WORKDIR /opt
 
 # Install required packages (sqlserver, debugger, image, mail) using cfpm.sh
-RUN /opt/coldfusion/cfpm/bin/cfpm.sh install sqlserver debugger image mail
+RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
 
 # Set up data source using admin API (password removed for security)
 COPY datasource.cfm /tmp/datasource.cfm
