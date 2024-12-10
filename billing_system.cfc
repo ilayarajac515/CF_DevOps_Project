@@ -1642,7 +1642,7 @@
             <cfquery name="updaterestataus "datasource="BillingSystem">
                 UPDATE  tblreferral set Status =<cfqueryparam value="#arguments.password#" cfsqltype="cf_sql_varchar">
                 where CaseID=<cfqueryparam value="#arguments.password#" cfsqltype="cf_sql_varchar">
-            
+            </cfquery>
             <cfset structClear(session)>
             <cfreturn "success">
         <cfelse>
