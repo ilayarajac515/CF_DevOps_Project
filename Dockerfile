@@ -29,9 +29,6 @@ RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var na
 # Modify the <Context> tag in server.xml
 RUN sed -i 's|<Context[[:space:]]*path=""[[:space:]]*docBase="/app"[[:space:]]*WorkDir="/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp"[[:space:]]*>|<Context path="" docBase="/opt/coldfusion/cfusion/wwwroot" WorkDir="/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp" allowLinking="true" listings="true">|g' /opt/coldfusion/cfusion/runtime/conf/server.xml
 
-
-WORKDIR /opt
-
 # Install required packages (sqlserver, debugger, image, mail) using cfpm.sh
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
 
