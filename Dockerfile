@@ -1,7 +1,7 @@
 # Base Image
 FROM adobecoldfusion/coldfusion2021:latest
  
-# Accept EULA and set default environment variables
+# Accept EULA and set environment variables
 ENV acceptEULA=YES
 ENV adminPassword="Admin@123"
 ENV enableSecureProfile=NO
@@ -9,42 +9,34 @@ ENV enableSecureProfile=NO
 # Set working directory
 WORKDIR /opt/coldfusion/cfusion/wwwroot
  
-# Update apt and install necessary packages
-RUN apt-get update && apt-get install -y unzip vim xmlstarlet && \
+# Update apt and install utilities
+RUN apt-get update && apt-get install -y unzip vim && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
  
-# Copy and extract the build.zip file into the container
+# Copy the build.zip file into the container
 COPY build.zip /tmp/build.zip
+ 
+# Extract the zip file and clean up
 RUN unzip /tmp/build.zip -d /tmp/build && \
     cp -r /tmp/build/. /opt/coldfusion/cfusion/wwwroot && \
     rm -rf /tmp/build /tmp/build.zip
  
-# Modify neo-security.xml to disable admin security
-RUN xmlstarlet ed -u "/properties/var[@name='admin.security.enabled']/boolean/@value" \
-    -v "false" /opt/coldfusion/cfusion/lib/neo-security.xml > /tmp/neo-security.xml && \
-    mv /tmp/neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml
+# Modify `neo-security.xml` dynamically to disable admin security
+RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
  
-RUN sed -i "/<\/Host>/i \
-  <Context path='' docBase='/opt/coldfusion/cfusion/wwwroot' WorkDir='/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp' allowLinking='true' listings='true'> \
-    <Resources> \
-      <PreResources base='/opt/coldfusion/cfusion/wwwroot/cf_scripts' className='org.apache.catalina.webresources.DirResourceSet' webAppMount='/cf_scripts' /> \
-      <PreResources base='/opt/coldfusion/cfusion/wwwroot/CFIDE' className='org.apache.catalina.webresources.DirResourceSet' webAppMount='/CFIDE' /> \
-      <PreResources base='/opt/coldfusion/cfusion/wwwroot/WEB-INF' className='org.apache.catalina.webresources.DirResourceSet' webAppMount='/WEB-INF' /> \
-      <PreResources base='/opt/coldfusion/cfusion/wwwroot/restplay' className='org.apache.catalina.webresources.DirResourceSet' webAppMount='/restplay' /> \
-    </Resources> \
-  </Context>" /opt/coldfusion/cfusion/runtime/conf/server.xml
-
+# Modify `<Context>` tag in `server.xml` dynamically
+RUN sed -i 's|<Context path="" docBase="/app" .*|<Context path="" docBase="/opt/coldfusion/cfusion/wwwroot" WorkDir="/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp" allowLinking="true" listings="true">|g' \
+    /opt/coldfusion/cfusion/runtime/conf/server.xml
  
-# Install required packages (sqlserver, debugger, image, mail)
+# Install necessary ColdFusion packages
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
- 
+
+RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
+
 # Set up data source using the Admin API
 COPY datasource.cfm /opt/coldfusion/cfusion/wwwroot/WEB-INF/datasource.cfm
 RUN cfexecute="bash /opt/coldfusion/cfusion/wwwroot/WEB-INF/datasource.cfm"
- 
-# Clean up temporary files
-RUN rm -f /opt/coldfusion/cfusion/wwwroot/WEB-INF/datasource.cfm
- 
+
 # Expose ColdFusion server port
 EXPOSE 8500
  
