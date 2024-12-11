@@ -24,17 +24,7 @@ RUN xmlstarlet ed -u "/properties/var[@name='admin.security.enabled']/boolean/@v
     -v "false" /opt/coldfusion/cfusion/lib/neo-security.xml > /tmp/neo-security.xml && \
     mv /tmp/neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml
  
-RUN xmlstarlet ed \
-    -u "/Server/Service/Engine/Host/Context[@path='' and @docBase]" \
-    -v "/opt/coldfusion/cfusion/wwwroot" \
-    -i "/Server/Service/Engine/Host" \
-    -t elem -n "Context" -v "" \
-    -s "/Server/Service/Engine/Host/Context[@path='']" -t attr -n "path" -v "" \
-    -s "/Server/Service/Engine/Host/Context[@path='']" -t attr -n "docBase" -v "/opt/coldfusion/cfusion/wwwroot" \
-    -s "/Server/Service/Engine/Host/Context[@path='']" -t attr -n "allowLinking" -v "true" \
-    -s "/Server/Service/Engine/Host/Context[@path='']" -t attr -n "listings" -v "true" \
-    /opt/coldfusion/cfusion/runtime/conf/server.xml > /tmp/server.xml && \
-    mv /tmp/server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
+RUN sed -i "/<\/Host>/i <Context path='' docBase='/opt/coldfusion/cfusion/wwwroot' allowLinking='true' listings='true' />" /opt/coldfusion/cfusion/runtime/conf/server.xml
  
 # Install required packages (sqlserver, debugger, image, mail)
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
