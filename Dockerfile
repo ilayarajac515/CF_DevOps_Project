@@ -25,15 +25,40 @@ RUN unzip /tmp/build.zip -d /tmp/build && \
 RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
  
 # Modify `<Context>` tag in `server.xml` dynamically
+FROM adobecoldfusion/coldfusion2021:latest
+
+# Accept EULA and set default environment variables
+ENV acceptEULA=YES
+ENV adminPassword="Admin@123"
+ENV enableSecureProfile=NO
+
+# Install XMLStarlet
+RUN apt-get update && apt-get install -y xmlstarlet && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Modify the <Context> tag in server.xml
 RUN xmlstarlet ed \
-    -s "//Host" -t elem -n "Context" -v "" \
-    -i "//Host/Context" -t attr -n "path" -v "" \
-    -i "//Host/Context" -t attr -n "docBase" -v "/opt/coldfusion/cfusion/wwwroot" \
-    -i "//Host/Context" -t attr -n "WorkDir" -v "/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp" \
-    -i "//Host/Context" -t attr -n "allowLinking" -v "true" \
-    -i "//Host/Context" -t attr -n "listings" -v "true" \
+    -u "//Host/Context[@path='']/@docBase" -v "/opt/coldfusion/cfusion/wwwroot" \
+    -i "//Host/Context[@path='']" -t attr -n "allowLinking" -v "true" \
+    -i "//Host/Context[@path='']" -t attr -n "listings" -v "true" \
+    -s "//Host/Context[@path='']" -t elem -n "Resources" -v "" \
+    -s "//Host/Context/Resources" -t elem -n "PreResources" -v "" \
+    -i "//Host/Context/Resources/PreResources[not(@base)]" -t attr -n "base" -v "/opt/coldfusion/cfusion/wwwroot/cf_scripts" \
+    -i "//Host/Context/Resources/PreResources[not(@className)]" -t attr -n "className" -v "org.apache.catalina.webresources.DirResourceSet" \
+    -i "//Host/Context/Resources/PreResources[not(@webAppMount)]" -t attr -n "webAppMount" -v "/cf_scripts" \
+    -s "//Host/Context/Resources" -t elem -n "PreResources" -v "" \
+    -i "//Host/Context/Resources/PreResources[last()]" -t attr -n "base" -v "/opt/coldfusion/cfusion/wwwroot/CFIDE" \
+    -i "//Host/Context/Resources/PreResources[last()]" -t attr -n "className" -v "org.apache.catalina.webresources.DirResourceSet" \
+    -i "//Host/Context/Resources/PreResources[last()]" -t attr -n "webAppMount" -v "/CFIDE" \
     /opt/coldfusion/cfusion/runtime/conf/server.xml > /tmp/server.xml && \
     mv /tmp/server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
+
+# Expose ColdFusion server port
+EXPOSE 8500
+
+# Final CMD to start ColdFusion server
+CMD ["/opt/coldfusion/cfusion/bin/coldfusion", "start"]
+
  
 # Install necessary ColdFusion packages
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
