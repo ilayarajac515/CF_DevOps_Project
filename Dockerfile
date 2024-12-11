@@ -24,18 +24,6 @@ RUN unzip /tmp/build.zip -d /tmp/build && \
 # Modify `neo-security.xml` dynamically to disable admin security
 RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
  
-# Modify `<Context>` tag in `server.xml` dynamically
-FROM adobecoldfusion/coldfusion2021:latest
-
-# Accept EULA and set default environment variables
-ENV acceptEULA=YES
-ENV adminPassword="Admin@123"
-ENV enableSecureProfile=NO
-
-# Install XMLStarlet
-RUN apt-get update && apt-get install -y xmlstarlet && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
 # Modify the <Context> tag in server.xml
 RUN xmlstarlet ed \
     -u "//Host/Context[@path='']/@docBase" -v "/opt/coldfusion/cfusion/wwwroot" \
@@ -53,13 +41,6 @@ RUN xmlstarlet ed \
     /opt/coldfusion/cfusion/runtime/conf/server.xml > /tmp/server.xml && \
     mv /tmp/server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
-# Expose ColdFusion server port
-EXPOSE 8500
-
-# Final CMD to start ColdFusion server
-CMD ["/opt/coldfusion/cfusion/bin/coldfusion", "start"]
-
- 
 # Install necessary ColdFusion packages
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
 
