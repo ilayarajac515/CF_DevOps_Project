@@ -24,7 +24,16 @@ RUN xmlstarlet ed -u "/properties/var[@name='admin.security.enabled']/boolean/@v
     -v "false" /opt/coldfusion/cfusion/lib/neo-security.xml > /tmp/neo-security.xml && \
     mv /tmp/neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml
  
-RUN sed -i "/<\/Host>/i <Context path='' docBase='/opt/coldfusion/cfusion/wwwroot' allowLinking='true' listings='true' />" /opt/coldfusion/cfusion/runtime/conf/server.xml
+RUN sed -i "/<\/Host>/i \\
+  <Context path='' docBase='/opt/coldfusion/cfusion/wwwroot' WorkDir="/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp" allowLinking='true' listings='true'> \\
+    <Resources> \\
+      <PreResources base='/opt/coldfusion/cfusion/wwwroot/cf_scripts' className='org.apache.catalina.webresources.DirResourceSet' webAppMount='/cf_scripts' /> \\
+      <PreResources base='/opt/coldfusion/cfusion/wwwroot/CFIDE' className='org.apache.catalina.webresources.DirResourceSet' webAppMount='/CFIDE' /> \\
+      <PreResources base='/opt/coldfusion/cfusion/wwwroot/WEB-INF' className='org.apache.catalina.webresources.DirResourceSet' webAppMount='/WEB-INF' /> \\
+      <PreResources base='/opt/coldfusion/cfusion/wwwroot/restplay' className='org.apache.catalina.webresources.DirResourceSet' webAppMount='/restplay' /> \\
+    </Resources> \\
+  </Context>" /opt/coldfusion/cfusion/runtime/conf/server.xml
+
  
 # Install required packages (sqlserver, debugger, image, mail)
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
