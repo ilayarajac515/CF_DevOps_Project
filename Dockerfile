@@ -26,9 +26,12 @@ RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var na
  
 # Modify `<Context>` tag in `server.xml` dynamically
 RUN xmlstarlet ed \
-    -u "//Context[@path='']/@docBase" -v "/opt/coldfusion/cfusion/wwwroot" \
-    -i "//Context[@path='']" -t attr -n "allowLinking" -v "true" \
-    -i "//Context[@path='']" -t attr -n "listings" -v "true" \
+    -s "//Host" -t elem -n "Context" -v "" \
+    -i "//Host/Context" -t attr -n "path" -v "" \
+    -i "//Host/Context" -t attr -n "docBase" -v "/opt/coldfusion/cfusion/wwwroot" \
+    -i "//Host/Context" -t attr -n "WorkDir" -v "/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp" \
+    -i "//Host/Context" -t attr -n "allowLinking" -v "true" \
+    -i "//Host/Context" -t attr -n "listings" -v "true" \
     /opt/coldfusion/cfusion/runtime/conf/server.xml > /tmp/server.xml && \
     mv /tmp/server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
  
