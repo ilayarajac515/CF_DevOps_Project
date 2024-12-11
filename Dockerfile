@@ -25,7 +25,7 @@ RUN xmlstarlet ed -u "/properties/var[@name='admin.security.enabled']/boolean/@v
     mv /tmp/neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml
  
 RUN sed -i "/<\/Host>/i \\
-  <Context path='' docBase='/opt/coldfusion/cfusion/wwwroot' WorkDir="/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp" allowLinking='true' listings='true'> \\
+  <Context path='' docBase='/opt/coldfusion/cfusion/wwwroot' WorkDir='/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp' allowLinking='true' listings='true'> \\
     <Resources> \\
       <PreResources base='/opt/coldfusion/cfusion/wwwroot/cf_scripts' className='org.apache.catalina.webresources.DirResourceSet' webAppMount='/cf_scripts' /> \\
       <PreResources base='/opt/coldfusion/cfusion/wwwroot/CFIDE' className='org.apache.catalina.webresources.DirResourceSet' webAppMount='/CFIDE' /> \\
