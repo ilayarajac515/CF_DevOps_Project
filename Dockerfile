@@ -10,7 +10,7 @@ ENV enableSecureProfile=NO
 WORKDIR /opt/coldfusion/cfusion/wwwroot
  
 # Update apt and install necessary packages
-RUN apt-get update && apt-get install -y unzip vim && \
+RUN apt-get update && apt-get install -y unzip vim xmlstarlet && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
  
 # Copy and extract the build.zip file into the container
@@ -20,10 +20,20 @@ RUN unzip /tmp/build.zip -d /tmp/build && \
     rm -rf /tmp/build /tmp/build.zip
  
 # Modify neo-security.xml to disable admin security
-RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
+RUN xmlstarlet ed -u "/properties/var[@name='admin.security.enabled']/boolean/@value" \
+    -v "false" /opt/coldfusion/cfusion/lib/neo-security.xml > /tmp/neo-security.xml && \
+    mv /tmp/neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml
  
 # Modify the <Context> tag in server.xml
-RUN sed -i 's|<Context path="" docBase="/app" .*|<Context path="" docBase="/opt/coldfusion/cfusion/wwwroot" allowLinking="true" listings="true">|g' /opt/coldfusion/cfusion/runtime/conf/server.xml
+RUN xmlstarlet ed \
+    -u "/Server/Service/Engine/Host/Context[@path='' and @docBase='/app']/@docBase" \
+    -v "/opt/coldfusion/cfusion/wwwroot" \
+    -i "/Server/Service/Engine/Host/Context[@path='' and @docBase='/app']" \
+    -t attr -n "allowLinking" -v "true" \
+    -i "/Server/Service/Engine/Host/Context[@path='' and @docBase='/app']" \
+    -t attr -n "listings" -v "true" \
+    /opt/coldfusion/cfusion/runtime/conf/server.xml > /tmp/server.xml && \
+    mv /tmp/server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
  
 # Install required packages (sqlserver, debugger, image, mail)
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
