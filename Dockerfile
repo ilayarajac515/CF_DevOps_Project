@@ -10,7 +10,7 @@ ENV enableSecureProfile=NO
 WORKDIR /opt/coldfusion/cfusion/wwwroot
  
 # Update apt and install utilities
-RUN apt-get update && apt-get install -y unzip vim && \
+RUN apt-get update && apt-get install -y unzip vim xmlstarlet && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
  
 # Copy the build.zip file into the container
@@ -25,8 +25,12 @@ RUN unzip /tmp/build.zip -d /tmp/build && \
 RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
  
 # Modify `<Context>` tag in `server.xml` dynamically
-RUN sed -i 's|<Context path="" docBase="/app" .*|<Context path="" docBase="/opt/coldfusion/cfusion/wwwroot" WorkDir="/opt/coldfusion/cfusion/runtime/conf/Catalina/localhost/tmp" allowLinking="true" listings="true">|g' \
-    /opt/coldfusion/cfusion/runtime/conf/server.xml
+RUN xmlstarlet ed \
+    -u "//Context[@path='']/@docBase" -v "/opt/coldfusion/cfusion/wwwroot" \
+    -i "//Context[@path='']" -t attr -n "allowLinking" -v "true" \
+    -i "//Context[@path='']" -t attr -n "listings" -v "true" \
+    /opt/coldfusion/cfusion/runtime/conf/server.xml > /tmp/server.xml && \
+    mv /tmp/server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
  
 # Install necessary ColdFusion packages
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
