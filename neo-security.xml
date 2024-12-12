@@ -8,10 +8,10 @@
 			<var name='admin.userid.root'>
 				<string>admin</string>
 			</var>
-      <var name='admin.userid.root.password'>
-        <string>e86f78a8a3caf0b60d8e74e5942aa6d86dc150cd3c03338aef25b7d2d7e3acc7</string>
-      </var>
-			<var name='CrossSiteScriptPatterns'>
+		<var name='admin.userid.root.password'>
+		        <string>e86f78a8a3caf0b60d8e74e5942aa6d86dc150cd3c03338aef25b7d2d7e3acc7</string>
+		</var>
+		      	<var name='CrossSiteScriptPatterns'>
 				<struct type='coldfusion.server.ConfigMap'>
 					<var name='&lt;\s*(object|embed|script|applet|meta)'>
 						<string>&lt;InvalidTag</string>
