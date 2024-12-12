@@ -41,9 +41,15 @@ RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var na
 #     /opt/coldfusion/cfusion/runtime/conf/server.xml > /tmp/server.xml && \
 #     mv /tmp/server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
-RUN sed -i 's|/app|/opt/coldfusion/cfusion/wwwroot|g' /opt/coldfusion/cfusion/runtime/conf/server.xml
+copy server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
-Run sed -i 's|8500|8600|g' /opt/coldfusion/cfusion/runtime/conf/server.xml
+
+# RUN xmlstarlet ed \
+#      -u "//Host/Context[@path='']/@docBase" -v "/opt/coldfusion/cfusion/wwwroot" 
+
+# RUN sed -i 's|/app|/opt/coldfusion/cfusion/wwwroot|g' /opt/coldfusion/cfusion/runtime/conf/server.xml
+
+# Run sed -i 's|8500|8600|g' /opt/coldfusion/cfusion/runtime/conf/server.xml
 
 # Install necessary ColdFusion packages
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
