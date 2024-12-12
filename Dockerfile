@@ -10,9 +10,10 @@ ENV enableSecureProfile=NO
 WORKDIR /opt/coldfusion/cfusion/wwwroot
  
 # Update apt and install utilities
-RUN apt-get update && apt-get install -y unzip vim xmlstarlet && \
+RUN apt-get update && apt-get install -y unzip vim  && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
- 
+
+# xmlstarlet
 # Copy the build.zip file into the container
 COPY build.zip /tmp/build.zip
  
@@ -22,7 +23,7 @@ RUN unzip /tmp/build.zip -d /tmp/build && \
     rm -rf /tmp/build /tmp/build.zip
  
 # Modify `neo-security.xml` dynamically to disable admin security
-RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
+# RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
  
 # # Modify the <Context> tag in server.xml
 # RUN xmlstarlet ed \
@@ -40,6 +41,9 @@ RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var na
 #     -i "//Host/Context/Resources/PreResources[last()]" -t attr -n "webAppMount" -v "/CFIDE" \
 #     /opt/coldfusion/cfusion/runtime/conf/server.xml > /tmp/server.xml && \
 #     mv /tmp/server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
+
+
+COPY neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml
 
 COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
