@@ -44,7 +44,7 @@
 				<boolean value='true'/>
 			</var>
 			<var name='admin.userid.required'>
-				<boolean value='true'/>
+				<boolean value='false'/>
 			</var>
 			<var name='secureprofile.enabled'>
 				<boolean value='false'/>
