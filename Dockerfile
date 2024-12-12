@@ -41,7 +41,7 @@ RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var na
 #     /opt/coldfusion/cfusion/runtime/conf/server.xml > /tmp/server.xml && \
 #     mv /tmp/server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
-copy server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
+COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
 
 # RUN xmlstarlet ed \
