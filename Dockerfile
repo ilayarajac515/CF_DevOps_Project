@@ -22,7 +22,8 @@ RUN unzip /tmp/build.zip -d /tmp/build && \
     rm -rf /tmp/build /tmp/build.zip
 
 # Copy configuration files
-COPY neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml
+COPY neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml 
+                     
 COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
 # Install necessary ColdFusion packages
