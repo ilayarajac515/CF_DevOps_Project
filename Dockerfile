@@ -31,7 +31,6 @@ COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
 RUN sed -i "/<var name='maxcachecount'>/,/<\/struct>/ {\
     /<\/struct>/ i \\
-                <!-- Added New Data Source -->\\
                 <var name='BillingSystem'>\\
                     <struct type='coldfusion.server.ConfigMap'>\\
                         <var name='host'><string>51.20.98.224</string></var>\\
