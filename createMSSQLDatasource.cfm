@@ -2,7 +2,7 @@
     // Datasource details
     datasourceName = "BillingSystem";
     datasourceConfig = {
-        host = "13.60.224.241", // Database server IP
+        host = "51.20.40.151", // Database server IP
         database = "BillingSystem", // Database name
         username = "SA", // Database username
         password = "Admin@123", // Database password
