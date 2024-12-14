@@ -23,11 +23,15 @@ RUN unzip /tmp/build.zip -d /tmp/build && \
 
 # Copy configuration files
 # COPY neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml 
-                     
+RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
+
 COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
 # Install necessary ColdFusion packages
-RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver debugger image mail
+RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver 
+RUN /opt/coldfusion/cfusion/bin/cfpm.sh install debugger
+RUN /opt/coldfusion/cfusion/bin/cfpm.sh install image
+RUN /opt/coldfusion/cfusion/bin/cfpm.sh install mail
 
 # Copy datasource setup script
 COPY datasource.cfm /opt/coldfusion/cfusion/wwwroot/WEB-INF/datasource.cfm
