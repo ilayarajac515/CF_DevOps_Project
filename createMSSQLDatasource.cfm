@@ -12,7 +12,7 @@
 
     try {
         // Create component object
-        datasourceObj = createObject("component", "cfide.adminapi.datasource");
+        datasourceObj = createObject("component", "cfide.adminapi._datasource");
 
         // Create datasource
         datasourceObj.setDatasource(
