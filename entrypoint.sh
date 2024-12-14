@@ -9,7 +9,7 @@ sleep 60
 
 # Execute the datasource setup script
 echo "Setting up datasource..."
-curl -X POST http://localhost:8500/datasource.cfm
+curl -X POST http://localhost:8500/build/datasource.cfm
 
 # Keep the container running
 tail -f /opt/coldfusion/cfusion/logs/coldfusion-out.log
