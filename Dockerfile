@@ -31,7 +31,7 @@ COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
 COPY neo-datasource.xml /opt/coldfusion/cfusion/lib/neo-datasource.xml
 
-RUN chmod 755 neo-datasource.xml
+RUN chmod 755 /opt/coldfusion/cfusion/lib/neo-datasource.xml
 
 # Install necessary ColdFusion packages
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver 
