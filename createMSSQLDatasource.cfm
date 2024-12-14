@@ -1,7 +1,7 @@
 // Datasource details
 datasourceName = "BillingSystem";
 datasourceConfig = {
-    host = "13.61.148.177", // Change to your database server hostname or IP
+    host = "51.21.135.179", // Change to your database server hostname or IP
     database = "BillingSystem", // Name of your database
     username = "SA", // Database username
     password = "Admin@123", // Database password
