@@ -2,27 +2,29 @@
     // Datasource details
     datasourceName = "BillingSystem";
     datasourceConfig = {
-        host = "13.60.224.241", // Change to your database server hostname or IP
-        database = "BillingSystem", // Name of your database
+        host = "13.60.224.241", // Database server IP
+        database = "BillingSystem", // Database name
         username = "SA", // Database username
         password = "Admin@123", // Database password
-        port = "1433", // Default MS SQL port
-        driver = "MSSQLServer"
+        port = "1433", // MS SQL default port
+        driver = "Microsoft SQL Server" // Driver name
     };
 
     try {
-        // Login to Admin API (no password needed as you've disabled it)
+        // Create component object
         datasourceObj = createObject("component", "cfide.adminapi.datasource");
 
-        // Create MS SQL datasource
-        datasourceObj.setMSSQLServer(
+        // Create datasource
+        datasourceObj.setDatasource(
             datasourceName, 
+            datasourceConfig.driver, 
             datasourceConfig.host, 
             datasourceConfig.database, 
             datasourceConfig.port, 
             datasourceConfig.username, 
             datasourceConfig.password, 
-            ""
+            "", // Description (optional)
+            "false" // Secure connections
         );
 
         writeOutput("Datasource '" & datasourceName & "' created successfully.");
