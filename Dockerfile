@@ -29,18 +29,18 @@ RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var na
 
 COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
-RUN sed -i '/<var name="maxcachecount">/,/<\/struct>/ { \
-    /<\/struct>/ i \
-                <var name="BillingSystem"> \
-                    <struct type="coldfusion.server.ConfigMap"> \
-                        <var name="host"><string>51.21.135.179</string></var> \
-                        <var name="database"><string>BillingSystem</string></var> \
-                        <var name="username"><string>SA</string></var> \
-                        <var name="password"><string>Admin@123</string></var> \
-                        <var name="port"><string>1433</string></var> \
-                        <var name="driver"><string>MSSQLServer</string></var> \
-                    </struct> \
-                </var>' /opt/coldfusion/cfusion/lib/neo-datasource.xml
+# RUN sed -i '/<var name="maxcachecount">/,/<\/struct>/ { \
+#     /<\/struct>/ i \
+#                 <var name="BillingSystem"> \
+#                     <struct type="coldfusion.server.ConfigMap"> \
+#                         <var name="host"><string>51.21.135.179</string></var> \
+#                         <var name="database"><string>BillingSystem</string></var> \
+#                         <var name="username"><string>SA</string></var> \
+#                         <var name="password"><string>Admin@123</string></var> \
+#                         <var name="port"><string>1433</string></var> \
+#                         <var name="driver"><string>MSSQLServer</string></var> \
+#                     </struct> \
+#                 </var>' /opt/coldfusion/cfusion/lib/neo-datasource.xml
 
 # COPY neo-datasource.xml /opt/coldfusion/cfusion/lib/neo-datasource.xml
 
