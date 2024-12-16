@@ -47,6 +47,8 @@ RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install debugger
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install image
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install mail
+RUN /opt/coldfusion/cfusion/bin/cfpm.sh install adminapi
+
 
 # Copy datasource setup script
 COPY datasource.cfm /opt/coldfusion/cfusion/wwwroot/datasource.cfm
