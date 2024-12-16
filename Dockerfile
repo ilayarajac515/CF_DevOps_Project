@@ -23,7 +23,7 @@ RUN unzip /tmp/build.zip -d /tmp/build && \
 
 # Copy configuration files
 # COPY neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml 
-RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
+# RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
 
 COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
