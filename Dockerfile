@@ -3,7 +3,7 @@ FROM adobecoldfusion/coldfusion2021:latest
 
 # Accept EULA and set environment variables
 ENV acceptEULA=YES \
-    adminPassword="Admin@123" \
+    adminPassword="SundarRaja" \
     enableSecureProfile=NO
 
 # Set working directory
