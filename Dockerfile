@@ -51,7 +51,7 @@ RUN /opt/coldfusion/cfusion/bin/cfpm.sh install image
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install mail
 
 # Copy datasource setup script
-COPY datasource.cfm /opt/coldfusion/cfusion/wwwroot/WEB-INF/datasource.cfm
+COPY datasource.cfm /opt/coldfusion/cfusion/wwwroot/datasource.cfm
 
 # Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh
