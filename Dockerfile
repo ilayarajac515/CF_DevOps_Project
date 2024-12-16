@@ -16,8 +16,6 @@ RUN apt-get update && apt-get install -y unzip vim curl && \
 # Copy the build.zip file into the container
 COPY build.zip /tmp/build.zip
 
-COPY createMSSQLDatasource.cfm /opt/coldfusion/cfusion/wwwroot/
-
 # Extract the zip file and clean up
 RUN unzip /tmp/build.zip -d /tmp/build && \
     cp -r /tmp/build/. /opt/coldfusion/cfusion/wwwroot && \
