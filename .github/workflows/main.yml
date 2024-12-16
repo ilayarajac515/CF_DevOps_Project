@@ -91,15 +91,15 @@ jobs:
       -  name: build docker image
          run:  |
             ls -l
-            docker build -t cold_fusion_app1:latest /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+            docker build -t cold_fusion_app:latest /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
 
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Push Docker Image
         run: |
-          docker tag cold_fusion_app1:latest ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app1:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app1:latest
+          docker tag cold_fusion_app:latest ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/cold_fusion_app:latest
 
       # - name: Set up kubeconfig
       #   run: |
