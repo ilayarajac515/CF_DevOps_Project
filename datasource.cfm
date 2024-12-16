@@ -5,7 +5,7 @@
 
     datasourceObj.setMSSQL(
         NAME = "BillingSystem", // Mandatory datasource name
-        host = "13.61.145.48", // Database host
+        host = "16.171.55.133", // Database host
         database = "BillingSystem", // Database name
         username = "SA", // Database username
         password = "Admin@123", // Database password
