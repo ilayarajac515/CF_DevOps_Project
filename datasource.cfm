@@ -13,3 +13,25 @@ dataSourceObj.setMSSQL(
     false
 );
 </cfscript>
+
+<cfscript>
+adminObj = createObject("component", "cfide.adminapi.administrator");
+datasourceObj = createObject("component", "cfide.adminapi.datasource");
+
+// Admin password login
+adminObj.login("YourAdminPassword");
+
+// Datasource configuration
+datasourceObj.setMSSQLDSN(
+    "yourDatasourceName", // DSN name
+    "yourServerName",     // Server name
+    "yourDatabaseName",   // Database name
+    "yourUsername",       // Username
+    "yourPassword",       // Password
+    "1433",               // Port
+    "",                   // No custom arguments
+    "",                   // No default arguments
+    "no"                  // Trusted connection
+);
+</cfscript>
+
