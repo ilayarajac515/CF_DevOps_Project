@@ -316,7 +316,7 @@
                         </div> --->
                         
                             <div class="input-group input-group-navbar">
-                                <h2 style="font-weight: bold; color: ##013063; font-family: 'Arial', sans-serif;">Billing System</h2>
+                                <h4 style="font-weight: bold; color: ##013063; font-family: 'Arial', sans-serif;">Billing System</h4>
                         </div>
                         
                     </form>
