@@ -55,7 +55,6 @@ RUN /opt/coldfusion/cfusion/bin/cfpm.sh install adminapi
 COPY datasource.cfm /opt/coldfusion/cfusion/wwwroot/datasource.cfm
 
 COPY password.properties /opt/coldfusion/cfusion/lib/password.properties
-
 RUN chmod 600 /opt/coldfusion/cfusion/lib/password.properties
 RUN chown cfuser:bin /opt/coldfusion/cfusion/lib/password.properties
 
