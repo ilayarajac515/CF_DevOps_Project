@@ -1,15 +1,29 @@
 <cfscript>
-    // ColdFusion Admin Login
+    // Credentials
+    adminUsername = "admin";
+ 
+    // Database Details
+    datasourceName = "BillingSystem";
+    dbServer = "13.51.159.247";
+    dbName = "BillingSystem";
+    dbPort = "1433";
+    dbUsername = "SA";
+    dbPassword = "Admin@123";
+    dbDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+ 
+    // Login to ColdFusion Admin
     adminObj = createObject("component", "cfide.adminapi.administrator");
+    adminObj.login(adminUsername);
+ 
+    // Add the datasource - fixing parameters order
     datasourceObj = createObject("component", "cfide.adminapi.datasource");
-
     datasourceObj.setMSSQL(
-        NAME = "BillingSystem", // Mandatory datasource name
-        host = "16.171.55.133", // Database host
-        database = "BillingSystem", // Database name
-        username = "SA", // Database username
-        password = "Admin@123", // Database password
-        port = "1433", // Database port (Default MSSQL: 1433)
-        description = "This is a test datasource"
+        name = datasourceName,       // CF Data Source Name
+        host = dbServer,             // Server
+        database = dbName,           // Database Name
+        username = dbUsername,       // Database Username
+        password = dbPassword,       // Database Password
+        port = dbPort,               // Database Port
+        description = ""             // Blank description
     );
 </cfscript>
