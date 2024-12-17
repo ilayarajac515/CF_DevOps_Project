@@ -14,7 +14,7 @@
  
     // Login to ColdFusion Admin
     adminObj = createObject("component", "cfide.adminapi.administrator");
-    adminObj.login(adminUsername, adminPassword);
+    adminObj.login(adminPassword);
  
     // Add the datasource - fixing parameters order
     datasourceObj = createObject("component", "cfide.adminapi.datasource");
