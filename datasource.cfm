@@ -5,7 +5,7 @@
  
     // Database Details
     datasourceName = "BillingSystem";
-    dbServer = "13.61.13.239";
+    dbServer = "98.130.92.124";
     dbName = "BillingSystem";
     dbPort = "1433";
     dbUsername = "SA";
