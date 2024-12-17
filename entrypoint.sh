@@ -12,10 +12,10 @@ sleep 60
 
 
 # Wait for ColdFusion to fully start
-while ! curl -s http://localhost:8500/CFIDE/administrator/index.cfm > /dev/null; do
-    echo "Waiting for ColdFusion to be ready..."
-    sleep 5
-done
+# while ! curl -s http://localhost:8500/CFIDE/administrator/index.cfm > /dev/null; do
+#     echo "Waiting for ColdFusion to be ready..."
+#     sleep 5
+# done
 
 # echo "Setting up datasource..."
 curl -X POST http://localhost:8500/datasource.cfm
