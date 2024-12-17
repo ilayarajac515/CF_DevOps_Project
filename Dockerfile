@@ -54,6 +54,10 @@ RUN /opt/coldfusion/cfusion/bin/cfpm.sh install adminapi
 # Copy datasource setup script
 COPY datasource.cfm /opt/coldfusion/cfusion/wwwroot/datasource.cfm
 
+COPY password.properties /opt/coldfusion/cfusion/lib/password.properties
+
+RUN chmod 600 /opt/coldfusion/cfusion/lib/password.properties
+
 # Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
