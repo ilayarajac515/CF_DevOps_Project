@@ -3,7 +3,7 @@ FROM adobecoldfusion/coldfusion2021:latest
 
 # Accept EULA and set environment variables
 ENV acceptEULA=YES \
-    adminPassword="SundarRaja" \
+    adminPassword="Admin@123" \
     enableSecureProfile=NO
 
 # Set working directory
@@ -22,41 +22,21 @@ RUN unzip /tmp/build.zip -d /tmp/build && \
     chmod -R 777 build/Assets && \
     rm -rf /tmp/build /tmp/build.zip
 
-# Copy configuration files
-# COPY neo-security.xml /opt/coldfusion/cfusion/lib/neo-security.xml 
-# RUN sed -i "s|<var name='admin.security.enabled'><boolean value='true'/>|<var name='admin.security.enabled'><boolean value='false'/>|g" /opt/coldfusion/cfusion/lib/neo-security.xml
-
 COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
-
-# RUN sed -i '/<var name="maxcachecount">/,/<\/struct>/ { \
-#     /<\/struct>/ i \
-#                 <var name="BillingSystem"> \
-#                     <struct type="coldfusion.server.ConfigMap"> \
-#                         <var name="host"><string>51.21.135.179</string></var> \
-#                         <var name="database"><string>BillingSystem</string></var> \
-#                         <var name="username"><string>SA</string></var> \
-#                         <var name="password"><string>Admin@123</string></var> \
-#                         <var name="port"><string>1433</string></var> \
-#                         <var name="driver"><string>MSSQLServer</string></var> \
-#                     </struct> \
-#                 </var>' /opt/coldfusion/cfusion/lib/neo-datasource.xml
-
-# COPY neo-datasource.xml /opt/coldfusion/cfusion/lib/neo-datasource.xml
 
 # Install necessary ColdFusion packages
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver 
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install debugger
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install image
 RUN /opt/coldfusion/cfusion/bin/cfpm.sh install mail
-RUN /opt/coldfusion/cfusion/bin/cfpm.sh install adminapi
-
+# RUN /opt/coldfusion/cfusion/bin/cfpm.sh install adminapi
 
 # Copy datasource setup script
 COPY datasource.cfm /opt/coldfusion/cfusion/wwwroot/datasource.cfm
 
 COPY password.properties /opt/coldfusion/cfusion/lib/password.properties
-RUN chmod 600 /opt/coldfusion/cfusion/lib/password.properties
-RUN chown cfuser:bin /opt/coldfusion/cfusion/lib/password.properties
+RUN chmod 600 /opt/coldfusion/cfusion/lib/password.properties && \
+    chown cfuser:bin /opt/coldfusion/cfusion/lib/password.properties
 
 # Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh
