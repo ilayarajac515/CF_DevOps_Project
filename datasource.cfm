@@ -4,9 +4,9 @@
     adminPassword = "Infoane@123";
  
     // Database Details
-    datasourceName = "BillingSystem";
+    datasourceName = "BillingSystem1";
     dbServer = "51.20.63.96";
-    dbName = "BillingSystem";
+    dbName = "BillingSystem1";
     dbPort = "1433";
     dbUsername = "SA";
     dbPassword = "Admin@123";
