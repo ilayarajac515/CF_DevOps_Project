@@ -25,11 +25,10 @@ RUN unzip /tmp/build.zip -d /tmp/build && \
 COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
 # Install necessary ColdFusion packages
-RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver 
-RUN /opt/coldfusion/cfusion/bin/cfpm.sh install debugger
-RUN /opt/coldfusion/cfusion/bin/cfpm.sh install image
-RUN /opt/coldfusion/cfusion/bin/cfpm.sh install mail
-# RUN /opt/coldfusion/cfusion/bin/cfpm.sh install adminapi
+RUN /opt/coldfusion/cfusion/bin/cfpm.sh install sqlserver && \
+    /opt/coldfusion/cfusion/bin/cfpm.sh install debugger && \
+    /opt/coldfusion/cfusion/bin/cfpm.sh install image && \
+    /opt/coldfusion/cfusion/bin/cfpm.sh install mail
 
 # Copy datasource setup script
 COPY datasource.cfm /opt/coldfusion/cfusion/wwwroot/datasource.cfm
