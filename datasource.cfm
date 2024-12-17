@@ -1,6 +1,7 @@
 <cfscript>
     // Credentials
     adminUsername = "admin";
+    adminPassword = "Infoane@123";
  
     // Database Details
     datasourceName = "BillingSystem";
@@ -13,7 +14,7 @@
  
     // Login to ColdFusion Admin
     adminObj = createObject("component", "cfide.adminapi.administrator");
-    adminObj.login(adminUsername);
+    adminObj.login(adminUsername, adminPassword);
  
     // Add the datasource - fixing parameters order
     datasourceObj = createObject("component", "cfide.adminapi.datasource");
