@@ -92,7 +92,7 @@ jobs:
       - name: Run Trivy Scan
         run: trivy fs build-zip
 
-  Docker-image:
+  Docker:
     runs-on: ubuntu-latest
     needs: [Test, Install-trivy, Sonarcloud-analysis]
     steps:
@@ -108,10 +108,6 @@ jobs:
          run:  |
             docker build -t cold_fusion_app:latest /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
   
-  Docker-image-scan:
-     runs-on: ubuntu-latest
-     needs: [Docker-image]
-     steps:
       - name: Install Trivy
         run: |
           sudo apt-get update
@@ -125,10 +121,6 @@ jobs:
       - name: Scan Docker Image with Trivy
         run: trivy image --no-progress --severity HIGH,CRITICAL cold_fusion_app:latest
 
-  Docker-push:
-     runs-on: ubuntu-latest
-     needs: [Docker-image, Docker-image-scan]
-     steps:
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
@@ -139,7 +131,7 @@ jobs:
 
   Deploy:
     runs-on: ubuntu-latest
-    needs: [Docker-push]
+    needs: Docker
     steps: 
       -  name: checkout-code
          uses: actions/checkout@v3
