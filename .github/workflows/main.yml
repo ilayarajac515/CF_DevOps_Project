@@ -97,6 +97,13 @@ jobs:
           echo "Trivy successfully installed"
           echo "::set-output name=success::true"
 
+      - name: Debug PATH
+        run: |
+           echo "PATH: $PATH"
+           ls -l /usr/bin/trivy
+           ls -l /usr/local/bin/trivy
+
+
   Trivy-scan:
     runs-on: ubuntu-latest
     needs: Install-trivy
