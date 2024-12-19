@@ -147,8 +147,6 @@ jobs:
 
       - name: Apply Kubernetes Manifests
         run: |
-          kubectl delete deployment coldfusion-app
-          kubectl delete svc coldfusion
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
 
