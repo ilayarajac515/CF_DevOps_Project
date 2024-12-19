@@ -104,7 +104,7 @@ jobs:
          
       -  name: build docker image
          run:  |
-            docker build -t cold_fusion_app:latest /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+            docker build -t cold_fusion_app:latest /home/runner/work/Cold_Fusion_Project/CF_DevOps_Project
   
       - name: Install Trivy
         run: |
