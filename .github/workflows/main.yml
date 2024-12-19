@@ -74,6 +74,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: Build
     steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+            name: build-zip
+    
       - name: Install Trivy
         run: |
           sudo apt-get update
@@ -85,7 +90,7 @@ jobs:
           echo "::set-output name=success::true"
 
       - name: Run Trivy Scan
-        run: trivy fs /home/runner/work/Cold_Fusion_Project/Cold_Fusion_Project
+        run: trivy fs build-zip
 
   Docker-image:
     runs-on: ubuntu-latest
