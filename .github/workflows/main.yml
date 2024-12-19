@@ -64,7 +64,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ./node_modules/.bin/sonar-scanner \
-            -Dsonar.projectKey=Cold_Fusion_Project \
+            -Dsonar.projectKey=CF_DevOps_Project \
             -Dsonar.organization=ilayarajac515 \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://sonarcloud.io \
