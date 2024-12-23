@@ -125,7 +125,13 @@ jobs:
           echo "::set-output name=success::true"
 
       - name: Scan Docker Image with Trivy
-        run: trivy image --no-progress --severity HIGH,CRITICAL cold_fusion_app:latest
+        run: trivy image --no-progress --severity HIGH,CRITICAL cold_fusion_app:latest > trivy_docker_scan_output.txt
+
+      - name: Upload Trivy Scan Output
+        uses: actions/upload-artifact@v3
+        with:
+          name: trivy-docker-scan-results
+          path: trivy_docker_scan_output.txt
 
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
