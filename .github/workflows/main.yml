@@ -13,18 +13,23 @@ jobs:
       -  name: checkout-code
          uses: actions/checkout@v3
   
-      - name: Prepare Build Directory
-        run: |
-          mkdir build
-          rsync -av ./ ./build --exclude build
-          zip -r build.zip build
-          
+      -  name: create build directory
+         run: |
+              pwd
+              ls -la
+              mkdir build
+              rsync -av ./ ./build --exclude build
+              pwd
+              zip -r ${{ github.workspace }}/build.zip build
+              # mv build.zip ${{ github.workspace }}
+              ls -l ${{ github.workspace }}
+
       - name: Upload Build Artifact to Nexus
         run: |
           curl -u "${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }}" \
                --upload-file build.zip \
                "${{ secrets.NEXUS_URL }}/repository/releases/CF_DevOps_Project/build.zip"
-               
+           
   # Test:
   #   runs-on: ubuntu-latest
   #   needs: Build
