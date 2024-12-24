@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y unzip vim curl && \
 # Copy the build.zip file into the container
 RUN mv build-1.0.0.zip build.zip
 
-COPY build.zip /tmp/build.zip
+COPY build-1.0.0.zip /tmp/build.zip
 
 # Extract the zip file and clean up
 RUN unzip tmp/build.zip -d /tmp/build && \
