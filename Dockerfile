@@ -17,10 +17,10 @@ RUN apt-get update && apt-get install -y unzip vim curl && \
 COPY build-1.0.0.zip /tmp/build-1.0.0.zip
 
 # Extract the zip file and clean up
-RUN unzip build-1.0.0.zip -d /tmp/build && \
-    cp -r /tmp/build/. /opt/coldfusion/cfusion/wwwroot && \
-    chmod -R 777 build/Assets && \
-    rm -rf /tmp/build /tmp/build.zip
+RUN unzip build-1.0.0.zip -d /tmp/build-1.0.0 && \
+    cp -r /tmp/build-1.0.0/. /opt/coldfusion/cfusion/wwwroot && \
+    chmod -R 777 build-1.0.0/Assets && \
+    rm -rf /tmp/build-1.0.0 /tmp/build-1.0.0.zip
 
 COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
 
