@@ -25,7 +25,7 @@ jobs:
         run: |
           curl -v -u ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} \
           --upload-file build.zip \
-          http://13.61.17.42:8081/repository/maven-releases/coldfusion-artifacts/build.zip
+          http://13.61.17.42:8081/repository/maven-releases/com/example/project/1.0.0/build.zip
            
   # Test:
   #   runs-on: ubuntu-latest
