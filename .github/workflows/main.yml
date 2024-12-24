@@ -28,7 +28,7 @@ jobs:
         run: |
           curl -u "${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }}" \
                --upload-file build.zip \
-               "${{ secrets.NEXUS_URL }}/repository/releases/CF_DevOps_Project/build.zip"
+               "${{ secrets.NEXUS_URL }}/CF_DevOps_Project/build.zip"
            
   # Test:
   #   runs-on: ubuntu-latest
