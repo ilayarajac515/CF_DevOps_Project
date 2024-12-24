@@ -14,14 +14,12 @@ RUN apt-get update && apt-get install -y unzip vim curl && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy the build.zip file into the container
-COPY build.zip /tmp/build.zip
+COPY build-1.0.0.zip /tmp/build.zip
 
 # Extract the zip file and clean up
 RUN unzip /tmp/build.zip -d /tmp/build && \
     cp -r /tmp/build/. /opt/coldfusion/cfusion/wwwroot/build && \
-    cd build && \
-    ls -lrta && \
-    chmod -R 777 /build/Assets && \
+    chmod -R 777 /build/build-1.0.0/Assets && \
     rm -rf /tmp/build /tmp/build.zip
 
 COPY server.xml /opt/coldfusion/cfusion/runtime/conf/server.xml
