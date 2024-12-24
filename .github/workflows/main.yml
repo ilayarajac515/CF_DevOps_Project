@@ -33,11 +33,6 @@ jobs:
   #   steps:
   #     -  name: checkout-code
   #        uses: actions/checkout@v3
-
- # curl -v -u ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} \
- #          --upload-file build-1.0.0.zip \
- #           http://13.61.17.42:8081/repository/maven-releases/com/example/build/1.0.0/build-1.0.0.zip
-
       
   #     - name: Install CommandBox
   #       run: |
