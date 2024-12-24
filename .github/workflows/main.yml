@@ -25,10 +25,10 @@ jobs:
               ls -l ${{ github.workspace }}
 
       - name: Upload Build Artifact to Nexus
-        run: |
-          curl -u "${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }}" \
-               --upload-file build.zip \
-               "${{ secrets.NEXUS_URL }}/CF_DevOps_Project/build.zip"
+        run: |             
+          curl -u ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} \
+          --upload-file build.zip \
+          http://13.61.17.42:8081/repository/maven-releases/coldfusion-artifacts/build.zip
            
   # Test:
   #   runs-on: ubuntu-latest
