@@ -13,7 +13,6 @@ WORKDIR /opt/coldfusion/cfusion/wwwroot
 RUN apt-get update && apt-get install -y unzip vim curl && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN mv build-1.0.0.zip build.zip
 # Copy the build.zip file into the container
 COPY build.zip /tmp/build.zip
 
