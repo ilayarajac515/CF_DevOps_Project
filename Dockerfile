@@ -20,8 +20,8 @@ COPY build-1.0.0.zip /tmp/build.zip
 # Extract the zip file and clean up
 RUN unzip /tmp/build.zip -d /tmp/build && \
     cp -r /tmp/build/. /opt/coldfusion/cfusion/wwwroot/build && \
-    cd build
-    ls -l
+    cd build && \
+    ls -l && \
     chmod -R 777 /opt/coldfusion/cfusion/wwwroot/build/Assets || true && \
     rm -rf /tmp/build /tmp/build.zip
     
