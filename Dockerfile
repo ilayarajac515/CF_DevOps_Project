@@ -14,10 +14,10 @@ RUN apt-get update && apt-get install -y unzip vim curl && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy the build.zip file into the container
-COPY build-1.0.0.zip /tmp/build.zip
+COPY build-1.0.0.zip /tmp/build-1.0.0.zip
 
 # Extract the zip file and clean up
-RUN unzip /tmp/build.zip -d /tmp/build && \
+RUN unzip build-1.0.0.zip -d /tmp/build && \
     cp -r /tmp/build/. /opt/coldfusion/cfusion/wwwroot && \
     chmod -R 777 build/Assets && \
     rm -rf /tmp/build /tmp/build.zip
